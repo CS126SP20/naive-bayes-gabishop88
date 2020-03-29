@@ -145,3 +145,8 @@ _deps
 
 # Naive Bayes training, testing, and model files.
 # Add your data files below!
+/data/readme.txt
+/data/testimages
+/data/testlabels
+/data/trainingimages
+/data/traininglabels
