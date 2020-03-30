@@ -9,4 +9,3 @@ namespace bayes {
 }  // namespace bayes
 
 #endif  // BAYES_CLASSIFIER_H_
-
