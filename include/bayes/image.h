@@ -14,6 +14,8 @@ namespace bayes {
 
 constexpr size_t kImageSize = 28;
 
+//todo: make sure image is valid
+
 class Image {
   char pixels_[kImageSize][kImageSize] = { ' ' };
 

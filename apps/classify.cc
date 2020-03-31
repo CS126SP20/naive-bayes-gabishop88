@@ -8,6 +8,8 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+using std::fstream;
+using namespace bayes;
 
 // TODO(you): Change the code below for your project use case.
 
@@ -15,6 +17,10 @@ DEFINE_string(name, "Clarice", "Your first name");
 DEFINE_bool(happy, false, "Whether the greeting is a happy greeting");
 
 int main(int argc, char** argv) {
+
+  const string model_storage =
+      R"(C:\Users\gabis\CLionProjects\naive-bayes-gabishop88\data\models.txt)";
+
   gflags::SetUsageMessage(
       "Greets you with your name. Pass --helpshort for options.");
 
@@ -27,17 +33,30 @@ int main(int argc, char** argv) {
 
   const std::string punctuation = FLAGS_happy ? "!" : ".";
 
-  ifstream training_images("data/trainingimages");
-  ifstream training_values("data/traininglabels");
-  bayes::Model model;
-  model.train_all(training_images, training_values);
+  Model model_one;
+  Model model_two;
 
-  ifstream tests("data/testimages");
-  bayes::Image test;
+  TrainModel(model_one, "data/trainingimages", "data/traininglabels");
 
-  std::cout << model.classify(test) << std::endl;
+  ifstream model_input("data/models.txt");
+  model_input >> model_two;
 
-  std::cout << "Hello, " << FLAGS_name << punctuation << std::endl;
+  std::cout << "Classifying..." << std::endl;
+
+  vector<int> model_one_results(ClassifyAll(model_one, "data/testimages"));
+  vector<int> model_two_results(ClassifyAll(model_two, "data/testimages"));
+
+  std::cout << "Model One results:" << std::endl;
+  vector<vector<double>> chart_one =
+      VerifyClassifications(model_one_results, "data/testlabels");
+  OutputAccuracy(std::cout, chart_one);
+
+  std::cout << "Model Two Results" << std::endl;
+  vector<vector<double>> chart_two =
+      VerifyClassifications(model_two_results, "data/testlabels");
+  OutputAccuracy(std::cout, chart_two);
+
+  std::cout << std::endl <<"Hello, " << FLAGS_name << punctuation << std::endl;
   return EXIT_SUCCESS;
 }
 
@@ -53,4 +72,6 @@ int main(int argc, char** argv) {
  * 8 [0][0][0][0][0][0][0][0][1][0]
  * 9 [0][0][0][0][0][0][0][0][0][1]
  *    0  1  2  3  4  5  6  7  8  9
+ *
+ * score: x/10 where x is the sum of the diagonal.
  */

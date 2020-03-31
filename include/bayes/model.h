@@ -4,7 +4,12 @@
 #define BAYES_MODEL_H_
 
 #include "image.h"
+#include <fstream>
+#include <iostream>
 #include <cstdlib>
+using std::ifstream;
+using std::ofstream;
+using std::ostream;
 
 namespace bayes {
 
@@ -28,19 +33,26 @@ class Model {
 
   double total_size();
   double total_images_of_val(int c);
+  double find_P(int image_value);
+  double find_P(int x, int y, int shade, int image_value);
 
  public:
   Model();
 
   Model& train(Image& image, int val);
   Model& train_all(ifstream& images, ifstream& values);
-
-  double find_P(int image_value);
-  double find_P(int x, int y, int shade, int image_value);
-
   int classify(Image& image);
 
+  void setSmoothing(int new_val);
+
+  //todo: make a function that can get a specific model from a file, not just
+  // the first one - tellg: 52930
+
   friend ifstream& operator >>(ifstream& input, Model& model);
+  friend ofstream& operator <<(ofstream& output, Model& model);
+  friend ostream& operator <<(ostream& output, Model& model);
+  bool operator ==(Model& other);
+  Model& operator =(const Model& other);
 };
 
 }  // namespace bayes
