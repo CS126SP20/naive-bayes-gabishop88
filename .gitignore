@@ -150,3 +150,8 @@ _deps
 /data/testlabels
 /data/trainingimages
 /data/traininglabels
+/tests/data/training_images
+/tests/data/training_labels
+/tests/data/test_images_full
+/tests/data/test_labels_full
+/tests/data/blank_file

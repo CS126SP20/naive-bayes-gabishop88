@@ -10,11 +10,14 @@ using std::vector;
 
 namespace bayes {
 
-Model& TrainModel(Model& untrained, string images, string labels);
+Model& TrainModel(Model& untrained, string image_path, string label_path);
 vector<int> ClassifyAll(Model& model, string images);
 vector<vector<double>> VerifyClassifications(vector<int>& computed,
     string path_to_labels);
-void OutputAccuracy(ostream& output, vector<vector<double>> accuracy);
+/** prints the accuracy chart.
+ * @return */
+double OutputAccuracy(ostream& output, vector<vector<double>> accuracy,
+    bool print = true);
 
 }  // namespace bayes
 

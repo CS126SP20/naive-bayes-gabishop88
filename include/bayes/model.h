@@ -6,17 +6,13 @@
 #include "image.h"
 #include <fstream>
 #include <iostream>
-#include <cstdlib>
 using std::ifstream;
 using std::ofstream;
 using std::ostream;
+using bayes::Image;
+
 
 namespace bayes {
-
-// 0-9 inclusive.
-constexpr size_t kNumClasses = 10;
-// Shaded or not shaded.
-constexpr size_t kNumShades = 2;
 
 /**
  * Represents a Naive Bayes classification model for determining the
@@ -29,30 +25,29 @@ class Model {
    * Gets the number of training images with color d of classification c at a, b
    */
   int training_data_[kImageSize][kImageSize][kNumClasses][kNumShades] = { 0 };
-  double kLaplace = 1.0;
+  double kLaplace = 0.16;
 
   double total_size();
   double total_images_of_val(int c);
-  double find_P(int image_value);
-  double find_P(int x, int y, int shade, int image_value);
 
  public:
   Model();
 
-  Model& train(Image& image, int val);
-  Model& train_all(ifstream& images, ifstream& values);
+  double FindP(int image_value);
+  double FindP(int x, int y, int shade, int image_value);
+  Model& Train(Image& image, int val);
+  Model& TrainAll(ifstream& images, ifstream& values);
   int classify(Image& image);
 
-  void setSmoothing(int new_val);
 
   //todo: make a function that can get a specific model from a file, not just
   // the first one - tellg: 52930
 
   friend ifstream& operator >>(ifstream& input, Model& model);
   friend ofstream& operator <<(ofstream& output, Model& model);
-  friend ostream& operator <<(ostream& output, Model& model);
-  bool operator ==(Model& other);
-  Model& operator =(const Model& other);
+//  friend ostream& operator <<(ostream& output, Model& model);
+//  bool operator ==(Model& other);
+//  Model& operator =(const Model& other);
 };
 
 }  // namespace bayes

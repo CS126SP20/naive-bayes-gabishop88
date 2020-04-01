@@ -5,6 +5,16 @@
 
 namespace bayes {
 
+bool Image::verify() {
+  for (auto & pixel_row : pixels_) {
+    for (char c : pixel_row) {
+      if (!shades.count(c)) {
+        return false;
+      }
+    }
+  }
+}
+
 Image::Image() = default;
 
 char Image::at(int i, int j) {
@@ -12,11 +22,7 @@ char Image::at(int i, int j) {
 }
 
 int Image::value_at(int i, int j) {
-  char shade = pixels_[i][j];
-  if (shade == ' ') {
-    return 0;
-  }
-  return 1;
+  return shades[pixels_[i][j]];
 }
 
 ifstream& operator >>(ifstream &input, Image& image) {
