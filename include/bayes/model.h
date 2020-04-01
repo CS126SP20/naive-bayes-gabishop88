@@ -39,15 +39,8 @@ class Model {
   Model& TrainAll(ifstream& images, ifstream& values);
   int classify(Image& image);
 
-
-  //todo: make a function that can get a specific model from a file, not just
-  // the first one - tellg: 52930
-
   friend ifstream& operator >>(ifstream& input, Model& model);
   friend ofstream& operator <<(ofstream& output, Model& model);
-//  friend ostream& operator <<(ostream& output, Model& model);
-//  bool operator ==(Model& other);
-//  Model& operator =(const Model& other);
 };
 
 }  // namespace bayes

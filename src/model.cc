@@ -109,8 +109,6 @@ int Model::classify(Image &image) {
   return max_i;
 }
 
-//todo: find a better way of storing a model
-
 ifstream &operator >>(ifstream& input, Model& model) {
   input >> model.kLaplace;
 
@@ -142,42 +140,6 @@ ofstream &operator <<(ofstream &output, Model &model) {
 
   return output;
 }
-
-//ostream &operator <<(ostream &output, Model &model) {
-//  output << model.kLaplace << " ";
-//  for (int y = 0; y < kImageSize; y++) {
-//    for (int x = 0; x < kImageSize; x++) {
-//      for (int c = 0; c < kNumClasses; c++) {
-//        for (int s = 0; s < kNumShades; s++) {
-//          output << model.training_data_[x][y][c][s] << " ";
-//        }
-//      }
-//    }
-//  }
-//  output << std::endl;
-//  return output;
-//}
-//
-//bool Model::operator==(Model& other) {
-//  return training_data_ == other.training_data_;
-//}
-//
-//Model& Model::operator =(const Model& other) {
-//  if (&other == this) {
-//    return *this;
-//  }
-//  for (int y = 0; y < kImageSize; y++) {
-//    for (int x = 0; x < kImageSize; x++) {
-//      for (int c = 0; c < kNumClasses; c++) {
-//        for (int s = 0; s < kNumShades; s++) {
-//          training_data_[x][y][c][s] = other.training_data_[x][y][c][s];
-//        }
-//      }
-//    }
-//  }
-//
-//  return *this;
-//}
 
 }  // namespace bayes
 

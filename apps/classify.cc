@@ -8,9 +8,6 @@
 #include "bayes/model.h"
 
 using std::fstream;
-//using namespace bayes;
-
-// TODO(you): Change the code below for your project use case.
 
 DEFINE_string(images, "", "File path to images.");
 DEFINE_string(labels, "", "File Path to image labels.");

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 Graham Bishop. All rights reserved.
 
 #define CATCH_CONFIG_MAIN
 
